@@ -17,9 +17,14 @@ class DiscordBot(discord.Client):
         self.TOKEN = os.getenv('DISCORD_TOKEN')
 
     def fetch_kline_data(self):
-        response = requests.get(BYBIT_API_URL)
-        data = response.json()
-        return data['result']
+        try:
+            response = requests.get(BYBIT_API_URL)
+            response.raise_for_status()
+            data = response.json()
+            return data['result']
+        except requests.RequestException as e:
+            print(f"Error fetching data from Bybit API: {e}")
+            return None
 
     def calculate_rsi(self, data, period=14):
         df = pd.DataFrame(data)
@@ -31,19 +36,20 @@ class DiscordBot(discord.Client):
     @tasks.loop(seconds=5)
     async def update(self) -> None:
         data = self.fetch_kline_data()
-        rsi = self.calculate_rsi(data)
-        if rsi > 70:
-            await self.channel.send(
-                f'RSI is over 70: {rsi:.2f}. Consider selling.'
-            )
-        elif rsi < 30:
-            await self.channel.send(
-                f'RSI is below 30: {rsi:.2f}. Consider buying.'
-            )
-        else:
-            await self.channel.send(
-                f'RSI is currently {rsi:.2f}.'
-            )
+        if data is not None:
+            rsi = self.calculate_rsi(data)
+            if rsi is not None:
+                if rsi > 70:
+                    message = f'RSI is over 70: {rsi:.2f}. Consider selling.'
+                elif rsi < 30:
+                    message = f'RSI is below 30: {rsi:.2f}. Consider buying.'
+                else:
+                    message = f'RSI is currently {rsi:.2f}.'
+
+                try:
+                    await self.channel.send(message)
+                except discord.DiscordException as e:
+                    print(f"Error sending message to Discord: {e}")
 
     @update.before_loop
     async def before_update(self) -> None:
