@@ -26,9 +26,18 @@ Create a `.env` file in the root directory and fill it with the reference to .en
 DISCORD_TOKEN=<your-discord-token>
 DISCORD_GUILD=<your-guild-name>
 DISCORD_CHANNEL_ID=<your-channel-id>
+RSI_PERIOD=<selected rsi period>
 ```
 
-Replace `<your-discord-token>`, `<your-guild-name>`, and `<your-channel-id>` with your actual Discord bot token, server name, and channel ID.
+Replace `<your-discord-token>`, `<your-guild-name>`, `<your-channel-id>` and `<selected rsi period>` with your actual Discord bot token, server name, and channel ID. Some RSI period suggestions.
+
+#### Example RSI Periods
+The RSI can be calculated over various periods depending on your trading strategy. Here are some common periods:
+
+14-day RSI: Standard period, widely used in most analyses.
+9-day RSI: Popular in short-term trading.
+7-day RSI: Used for very short-term trading, providing more sensitive indicators.
+2-5 day RSI: Very short-term strategies, suitable for high volatility and day trading
 
 ### Step 3: Build and run the Docker container
 
