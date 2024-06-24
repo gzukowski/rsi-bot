@@ -63,8 +63,6 @@ class DiscordBot(discord.Client):
                     message = f'RSI is over 70: {rsi:.2f}. Consider selling.'
                 elif rsi < 30:
                     message = f'RSI is below 30: {rsi:.2f}. Consider buying.'
-                else:
-                    message = f'RSI is currently {rsi:.2f}.'
 
                 try:
                     await self.channel.send(message)
