@@ -68,6 +68,9 @@ Build and run the Docker container using Docker Compose:
 docker-compose build
 docker-compose up
 ```
+Successful run should look like this:
+![image](https://github.com/gzukowski/rsi-bot/assets/85632612/6aa116ed-02d3-4705-8a12-1939e86451d0)
+
 
 ## Usage
 
