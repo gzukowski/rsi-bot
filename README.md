@@ -7,9 +7,9 @@ This is a Discord bot that fetches kline data from the Bybit API, calculates the
 ### Prerequisites
 
 - Docker
-- A Discord bot token
-- A Discord server (guild) ID
-- A Discord channel ID
+- Discord bot token
+- Discord server (guild) ID
+- Discord channel ID
 
 ### Step 1: Discord Bot Configuration
 
@@ -18,14 +18,14 @@ This is a Discord bot that fetches kline data from the Bybit API, calculates the
     - Click on "New Application".
     - Give your application a name and click "Create".
     - Go to the "Bot" tab on the left sidebar.
-    - Reset the token and copy it for your .env file.
+    - Click "Reset Token" or "View Token" and save it for the next steps.
 
 2. **Invite Your Bot to Your Server:**
     - Go to the "OAuth2" tab on the left sidebar.
     - Select "bot" for url generator.
     - Select "Send Messages" and "Mention Everyone" in bot permissions.
     - Copy the generated url and paste it into your browser.
-    - Select the certain server.
+    - Select the server, where the bot is going to announce.
 
 3. **Get Your Server and Channel ID:**
     - Enable Developer Mode in Discord by going to User Settings > Advanced > Developer Mode.
