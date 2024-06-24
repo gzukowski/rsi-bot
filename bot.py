@@ -72,9 +72,9 @@ class DiscordBot(discord.Client):
             if rsi is not None:
                 message = None
                 if rsi > 70:
-                    message = f'RSI is over 70: {rsi:.2f}. Consider selling.'
+                    message = f'@everyone RSI is over 70: {rsi:.2f}. Consider selling.'
                 elif rsi < 30:
-                    message = f'RSI is below 30: {rsi:.2f}. Consider buying.'
+                    message = f'@everyone RSI is below 30: {rsi:.2f}. Consider buying.'
 
                 try:
                     if message:
