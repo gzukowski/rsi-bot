@@ -23,6 +23,22 @@ class DiscordBot(discord.Client):
         super().__init__(*args, **kwargs)
         load_dotenv()
         self.TOKEN = os.getenv('DISCORD_TOKEN')
+        self.RSI_PERIOD = self.get_rsi_period()
+
+    def get_rsi_period(self):
+        """
+        Retrieves and validates the RSI period from the environment variables.
+        
+        Returns:
+            int: The validated RSI period.
+        """
+        try:
+            rsi_period = int(os.getenv('RSI_PERIOD', 14))
+            logger.info(f"RSI period set to: {rsi_period}")
+            return rsi_period
+        except ValueError:
+            logger.error("Invalid RSI_PERIOD in environment variables. Using default value: 14")
+            return 14
 
     def fetch_kline_data(self):
         """
@@ -41,7 +57,7 @@ class DiscordBot(discord.Client):
             logger.error(f"{self.__class__.__name__}: Error fetching data from Bybit API: {e}")
             return None
 
-    def calculate_rsi(self, data, period=14):
+    def calculate_rsi(self, data):
         """
         Calculates the RSI (Relative Strength Index) from the provided kline data.
 
@@ -55,7 +71,7 @@ class DiscordBot(discord.Client):
         df = pd.DataFrame(data)
         df['close'] = df['list'].apply(lambda x: x[4])
         df['close'] = df['close'].astype(float)
-        rsi = ta.momentum.RSIIndicator(df['close'], window=period)
+        rsi = ta.momentum.RSIIndicator(df['close'], window=self.RSI_PERIOD)
         latest_rsi = rsi.rsi().iloc[-1]
         logger.info(f"{self.__class__.__name__}: Calculated RSI: {latest_rsi:.2f}")
         return latest_rsi
