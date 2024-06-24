@@ -11,25 +11,46 @@ This is a Discord bot that fetches kline data from the Bybit API, calculates the
 - A Discord server (guild) ID
 - A Discord channel ID
 
-### Step 1: Clone the repository
+### Step 1: Discord Bot Configuration
+
+1. **Create a Discord Bot:**
+    - Go to the [Discord Developer Portal](https://discord.com/developers/applications).
+    - Click on "New Application".
+    - Give your application a name and click "Create".
+    - Go to the "Bot" tab on the left sidebar.
+    - Reset the token and copy it for your .env file.
+
+2. **Invite Your Bot to Your Server:**
+    - Go to the "OAuth2" tab on the left sidebar.
+    - Select "bot" for url generator.
+    - Select "Send Messages" and "Mention Everyone" in bot permissions.
+    - Copy the generated url and paste it into your browser.
+    - Select the certain server.
+
+3. **Get Your Server and Channel ID:**
+    - Enable Developer Mode in Discord by going to User Settings > Advanced > Developer Mode.
+    - Right-click your server icon and click "Copy ID" to get your server (guild) ID.
+    - Navigate to the channel where you want the bot to send messages, right-click the channel name, and click "Copy ID" to get your channel ID.
+
+### Step 2: Clone the Repository
 
 ```sh
 git clone <your-repo-url>
 cd <your-repo-directory>
 ```
 
-### Step 2: Create a `.env` file
+### Step 3: Create a `.env` File
 
-Create a `.env` file in the root directory and fill it with the reference to .env-example file:
+Create a `.env` file in the root directory and fill it with the following content:
 
 ```env
 DISCORD_TOKEN=<your-discord-token>
-DISCORD_GUILD=<your-guild-name>
+DISCORD_GUILD=<your-guild-id>
 DISCORD_CHANNEL_ID=<your-channel-id>
-RSI_PERIOD=<selected rsi period>
+RSI_PERIOD=<selected-rsi-period>
 ```
 
-Replace `<your-discord-token>`, `<your-guild-name>`, `<your-channel-id>` and `<selected rsi period>` with your actual Discord bot token, server name, and channel ID. Some RSI period suggestions.
+Replace `<your-discord-token>`, `<your-guild-id>`, `<your-channel-id>`, and `<selected-rsi-period>` with your actual Discord bot token, server ID, and channel ID. 
 
 #### Example RSI Periods
 The RSI can be calculated over various periods depending on your trading strategy. Here are some common periods:
@@ -39,7 +60,7 @@ The RSI can be calculated over various periods depending on your trading strateg
 - **7-day RSI**: Used for very short-term trading, providing more sensitive indicators.
 - **2-5 day RSI**: Very short-term strategies, suitable for high volatility and day trading.
 
-### Step 3: Build and run the Docker container
+### Step 4: Build and Run the Docker Container
 
 Build and run the Docker container using Docker Compose:
 
